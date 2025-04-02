@@ -1,0 +1,34 @@
+{
+  "users": [
+    {
+      "id": 2,
+      "fullName": "Huynh Nhu Bao Nhan",
+      "age": 19,
+      "gender": "Male"
+    },
+    {
+      "id": 3,
+      "fullName": "Peter",
+      "age": 31,
+      "gender": "Male"
+    },
+    {
+      "id": 4,
+      "fullName": "Nguyen Ngoc Anh Hao",
+      "age": 21,
+      "gender": "Male"
+    },
+    {
+      "id": 5,
+      "fullName": "Tran Cong Duc",
+      "age": 17,
+      "gender": "Female"
+    },
+    {
+      "id": 6,
+      "fullName": "Nhat Huy",
+      "age": 91,
+      "gender": "Female"
+    }
+  ]
+}
