@@ -24,6 +24,7 @@ router.get('/home/users/:id', (req, res) => {
   })
 })
 
+//kh cần ghi create ghi home/users là được
 router.post('/home/create', (req, res) => {
   const {
     fullName,
@@ -39,6 +40,7 @@ router.post('/home/create', (req, res) => {
   }
 
   dbjson.users.push(newUser)
+  // nên dùng try catch để lỡ không may khi file lỗi 
   fs.writeFileSync(path.resolve('db.json'), JSON.stringify(dbjson, null, 2))
 
   res.status(201).json(newUser)
@@ -62,6 +64,7 @@ router.put('/home/users/:id', (req, res) => {
   user.age = age
   user.gender = gender
 
+  // nên dùng try catch để lỡ không may khi file lỗi 
   fs.writeFileSync(path.resolve('db.json'), JSON.stringify(dbjson, null, 2));
 
   res.status(200).json(user);
@@ -69,7 +72,8 @@ router.put('/home/users/:id', (req, res) => {
 
 router.delete('/home/users/:id', (req, res) => {
   const { id } = req.params
-  
+
+  //cái ni đang dùng .find() nên hắn sẽ trả về nguyên thằng user nên khả năng dưới dùng splice sẽ bị lỗi 
   const userIndex = dbjson.users.find(user => user.id === parseInt(id))
 
   if(userIndex === -1) {
@@ -77,6 +81,7 @@ router.delete('/home/users/:id', (req, res) => {
   }
 
   dbjson.users.splice(userIndex, 1)
+  // nên dùng try catch để lỡ không may khi file lỗi 
   fs.writeFileSync(path.resolve('db.json'), JSON.stringify(dbjson, null, 2));
   res.status(200).json({ message: "User deleted successfully" });
 })
