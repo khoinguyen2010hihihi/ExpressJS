@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv'
 import userRoute from './routes/user.route.js'
 
-dotenv.config();  
+dotenv.config();
 
 const PORT = process.env.PORT
 
@@ -17,6 +17,6 @@ app.get('/home', (req, res) => {
 app.use(userRoute)
 
 app.listen(8000, () => {
-  console.log(`Sv is running on http://localhost:${PORT}`);
+  console.log(`Sv is running on http://localhost:${PORT}/home`);
 })
 
