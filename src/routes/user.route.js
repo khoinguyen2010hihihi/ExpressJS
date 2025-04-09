@@ -13,6 +13,6 @@ router.post('/home/create', UserValidator.validateCreateUser, userController.cre
 
 router.put('/home/users/:id', UserValidator.validateCreateUser, userController.updateUser.bind(userController))
 
-router.put('/home/users/:id', userController.deleteUser.bind(userController))
+router.delete('/home/users/:id', userController.deleteUser.bind(userController))
 
 export default router

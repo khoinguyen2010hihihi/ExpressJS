@@ -1,35 +1,34 @@
-import { User } from "../models/user.model.js";
-
+import { UserService } from "../services/user.service.js";
 export class UserController {
   constructor() {
-    this.User = new User();
+    this.userService = new UserService();
   }
 
   getAllUser = (req, res) => {
-    const users = this.User.getAllUsers()
-    res.status(200).json(users)
-  }
+    const users = this.userService.getAllUsers();
+    res.status(200).json(users);
+  };
 
   getUserById = (req, res) => {
-    const user = this.User.getUserById(req.params.id)
-    if(!user) return res.status(404).json("User not found")
-    res.status(200).json(user)
-  }
+    const user = this.userService.getUserById(req.params.id);
+    if (!user) return res.status(404).json("User not found");
+    res.status(200).json(user);
+  };
 
   createUser = (req, res) => {
-    const newUser = this.User.createUser(req.body)
-    res.status(200).json(newUser)
-  }
+    const newUser = this.userService.createUser(req.body);
+    res.status(201).json(newUser);
+  };
 
   updateUser = (req, res) => {
-    const updatedUser = this.User.updateUser(req.params.id, req.body)
-    if(!updatedUser) return res.status(404).json("User not found")
-    res.status(200).json(updatedUser)
-  }
+    const updatedUser = this.userService.updateUser(req.params.id, req.body);
+    if (!updatedUser) return res.status(404).json("User not found");
+    res.status(200).json(updatedUser);
+  };
 
   deleteUser = (req, res) => {
-    const isDeleted = this.User.deleteUser(req.params.id);
-    if(!isDeleted) return res.status(404).json("User not found");
+    const isDeleted = this.userService.deleteUser(req.params.id);
+    if (!isDeleted) return res.status(404).json("User not found");
     res.status(200).json("User deleted");
-  }
+  };
 }
