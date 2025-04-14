@@ -1,14 +1,21 @@
 import express from 'express';
 import dotenv from 'dotenv'
 import userRoute from './routes/user.route.js'
+import path from 'path'
 
 dotenv.config();
 
 const PORT = process.env.PORT
+const __dirname = path.resolve();
 
 const app = express();
 
+app.set('view engine', 'pug')
+app.set('views', path.join(__dirname, 'src/views'))
+
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/home', (req, res) => {
   res.send('Home')
@@ -16,7 +23,7 @@ app.get('/home', (req, res) => {
 
 app.use(userRoute)
 
-app.listen(8000, () => {
+app.listen(PORT, () => {
   console.log(`Sv is running on http://localhost:${PORT}/home`);
 })
 

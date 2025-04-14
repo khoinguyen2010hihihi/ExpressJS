@@ -1,0 +1,89 @@
+.container {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-list-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c2c2c;
+  margin-bottom: 20px;
+}
+
+.create-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding:5px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.create-btn {
+  background-color: #3b82f6;
+}
+
+.edit-top-btn {
+  background-color: #fbbf24;
+}
+
+/* Grid Styling */
+.user-grid {
+  display: grid;
+  grid-template-columns: 50px 1fr 80px 80px 1.5fr 1.5fr 180px;
+  gap: 10px;
+  align-items: center;
+  font-size: 16px;
+}
+
+.grid-header {
+  display: contents;
+  font-weight: bold;
+  color: #2c2c2c;
+  margin-bottom: 10px;
+}
+
+.header-item {
+  padding: 10px 0;
+}
+
+.user-row {
+  display: contents;
+  border-top: 1px solid #eee;
+}
+
+.user-cell {
+  padding: 12px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.edit-btn {
+  background-color: #22c55e;
+}
+
+.delete-btn {
+  background-color: #ef4444;
+}

@@ -15,11 +15,11 @@ export class User {
     fs.writeFileSync(this.dbPath, JSON.stringify(data, null, 2))
   }
 
-  getUsersRaw = () => this.readDB().users;
+  getUsersRaw = () => this.readDB().users
 
   saveUsersRaw = (users) => {
-    const db = this.readDB();
-    db.users = users;
-    this.writeDB(db);
-  };
+    const db = this.readDB()
+    db.users = users
+    this.writeDB(db)
+  }
 }

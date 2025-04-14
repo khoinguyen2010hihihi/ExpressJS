@@ -15,7 +15,8 @@ export class UserValidator {
     }
 
     // Validate age
-    if(typeof age !== "number" || age <= 0 || age >= 20) {
+    const ageNum = Number(age)
+    if (isNaN(ageNum) || ageNum <= 0 || ageNum >= 20) {
       errors.push("Age must be a number between 0 and 20")
     }
 
@@ -33,11 +34,11 @@ export class UserValidator {
     // Validate phone
     const phoneRegex = /^09\d{9}$/
     if (!phone || !phoneRegex.test(phone)) {
-      errors.push("Phone must start with 09 and have 11 digits");
+      errors.push("Phone must start with 09 and have 11 digits")
     }
 
     if (errors.length > 0) {
-      return res.status(400).json({ errors });
+      return res.status(400).json({ errors })
     }
     next()
   }

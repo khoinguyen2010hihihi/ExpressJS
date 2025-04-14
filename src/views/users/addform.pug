@@ -1,0 +1,33 @@
+head
+  link(rel="stylesheet", href="/css/addform.css")
+
+block content
+  .container
+    h2= title
+    form(method="POST", action=actionUrl)
+      .form-group
+        label(for="fullName") Full Name:
+        input#fullName(type="text", name="fullName", value=(user && user.fullName) || '', required)
+      
+      .form-group
+        label(for="age") Age:
+        input#age(type="number", name="age", value=(user && user.age) || '', required)
+      
+      .form-group
+        label Gender:
+        .radio-group
+          input#male(type="radio", name="gender", value="Male", checked=(user && user.gender === 'Male'))
+          label(for="male") Male
+          input#female(type="radio", name="gender", value="Female", checked=(user && user.gender === 'Female'))
+          label(for="female") Female
+      
+      .form-group
+        label(for="email") Email:
+        input#email(type="email", name="email", value=(user && user.email) || '', required)
+      
+      .form-group
+        label(for="phone") Phone:
+        input#phone(type="text", name="phone", value=(user && user.phone) || '', required)
+      
+      button(type="submit")= buttonText
+      a.cancel(href="/home/users") Cancel

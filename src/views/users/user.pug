@@ -1,0 +1,31 @@
+head
+  link(rel="stylesheet", href="/css/userlist.css")
+
+block content
+  .container
+    .content 
+      h2.user-list-title Table Title 
+      a.create-btn(href="/home/users/create") Add New
+
+    .user-grid 
+      //- Header
+      .grid-header
+        .header-item ID
+        .header-item Full Name
+        .header-item Age
+        .header-item Gender
+        .header-item Email
+        .header-item Phone
+        .header-item Actions
+      //- User list
+      each user in users
+        .user-row(data-user-id=user.id)
+        .user-cell= user.id
+        .user-cell= user.fullName
+        .user-cell= user.age
+        .user-cell= user.gender
+        .user-cell= user.email
+        .user-cell= user.phone
+        .user-cell.actions
+          a.edit-btn(href=`/home/users/${user.id}/edit`) Edit
+          a.delete-btn(href=`/home/users/${user.id}/delete`) Delete
