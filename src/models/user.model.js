@@ -1,25 +1,24 @@
-import fs from 'fs'
-import path from 'path'
+import mongoose from "mongoose";
 
-export class User {
-  constructor() {
-    this.dbPath = path.resolve('db.json')
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  age: Number,
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    lowercase: true
+  },
+  hobbies: {
+    type: [String],
+    default: []
   }
+}, {
+  timestamps: true
+})
 
-  readDB = () => {
-    const data = fs.readFileSync(this.dbPath, "utf-8")
-    return JSON.parse(data)
-  }
-
-  writeDB = (data) => {
-    fs.writeFileSync(this.dbPath, JSON.stringify(data, null, 2))
-  }
-
-  getUsersRaw = () => this.readDB().users
-
-  saveUsersRaw = (users) => {
-    const db = this.readDB()
-    db.users = users
-    this.writeDB(db)
-  }
-}
+const UserModel = mongoose.model('User', userSchema)
+export default UserModel

@@ -1,14 +1,15 @@
-import express from 'express';
+import express from 'express'
 import dotenv from 'dotenv'
+import instanceMongoDB from './database/init.mongodb.js'
 import userRoute from './routes/user.route.js'
 import path from 'path'
 
-dotenv.config();
+dotenv.config()
 
 const PORT = process.env.PORT
-const __dirname = path.resolve();
+const __dirname = path.resolve()
 
-const app = express();
+const app = express()
 
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'src/views'))
@@ -23,7 +24,9 @@ app.get('/home', (req, res) => {
 
 app.use(userRoute)
 
+instanceMongoDB
+
 app.listen(PORT, () => {
-  console.log(`Sv is running on http://localhost:${PORT}/home`);
+  console.log(`Sv is running on http://localhost:${PORT}/home`)
 })
 

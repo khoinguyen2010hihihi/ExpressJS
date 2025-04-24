@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { UserValidator } from "../middleware/user.validate.js";
-import { UserController } from "../controllers/user.controller.js";
+import { Router } from "express"
+import { UserValidator } from "../middleware/user.validate.js"
+import { UserController } from "../controllers/user.controller.js"
 
 const router = Router()
 const userController = new UserController()
@@ -18,4 +18,5 @@ router.post('/home/users/:id/edit', UserValidator.validateCreateUser, userContro
 router.get('/home/users/:id', userController.getUserById.bind(userController))
 
 router.get('/home/users/:id/delete', userController.deleteUser.bind(userController))
+
 export default router

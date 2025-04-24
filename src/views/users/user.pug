@@ -1,11 +1,12 @@
 head
   link(rel="stylesheet", href="/css/userlist.css")
+  title User List
 
 block content
   .container
     .content 
-      h2.user-list-title Table Title 
-      a.create-btn(href="/home/users/create") Add New
+      h2.user-list-title User List
+      a.create-btn(href="/home/users/create") Add New User
 
     .user-grid 
       //- Header
@@ -13,19 +14,17 @@ block content
         .header-item ID
         .header-item Full Name
         .header-item Age
-        .header-item Gender
         .header-item Email
-        .header-item Phone
+        .header-item Hobbies
         .header-item Actions
       //- User list
       each user in users
-        .user-row(data-user-id=user.id)
-        .user-cell= user.id
-        .user-cell= user.fullName
-        .user-cell= user.age
-        .user-cell= user.gender
-        .user-cell= user.email
-        .user-cell= user.phone
-        .user-cell.actions
-          a.edit-btn(href=`/home/users/${user.id}/edit`) Edit
-          a.delete-btn(href=`/home/users/${user.id}/delete`) Delete
+        .user-row(data-user-id=user._id)
+          .user-cell= user._id
+          .user-cell= user.name
+          .user-cell= user.age
+          .user-cell= user.email
+          .user-cell= user.hobbies.join(', ')
+          .user-cell.actions
+            a.edit-btn(href=`/home/users/${user._id}/edit`) Edit
+            a.delete-btn(href=`/home/users/${user._id}/delete`) Delete

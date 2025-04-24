@@ -1,42 +1,31 @@
-import { User } from "../models/user.model.js"
+import UserModel from '../models/user.model.js'
 
 export class UserService {
-  constructor() {
-    this.User = new User()
+  getAllUsers = async () => {
+    return await UserModel.find()
   }
 
-  getAllUsers = () => {
-    return this.User.getUsersRaw()
+  getUserById = async (id) => {
+    return await UserModel.findById(id)
   }
 
-  getUserById = (id) => {
-    const users = this.User.getUsersRaw();
-    return users.find((user) => user.id === parseInt(id))
+  createUser = async (userData) => {
+    const user = new UserModel(userData)
+    return await user.save()
   }
 
-  createUser = (userData) => {
-    const users = this.User.getUsersRaw()
-    const newUser = { id: users.length + 1, ...userData }
-    users.push(newUser)
-    this.User.saveUsersRaw(users)
-    return newUser
+  updateUser = async (id, userData) => {
+    const updatedUser = await UserModel.findByIdAndUpdate(id, userData, {
+      new: true,
+      runValidators: true
+    });
+  
+    return updatedUser;
   }
+  
 
-  updateUser = (id, userData) => {
-    const users = this.User.getUsersRaw()
-    const index = users.findIndex((u) => u.id === parseInt(id))
-    if (index === -1) return null
-    users[index] = { ...users[index], ...userData }
-    this.User.saveUsersRaw(users)
-    return users[index]
-  }
-
-  deleteUser = (id) => {
-    const users = this.User.getUsersRaw()
-    const index = users.findIndex((u) => u.id === parseInt(id))
-    if (index === -1) return false
-    users.splice(index, 1)
-    this.User.saveUsersRaw(users)
-    return true
+  deleteUser = async (id) => {
+    const result = await UserModel.deleteOne({ _id: id })
+    return result.deletedCount > 0
   }
 }
