@@ -18,11 +18,9 @@ export class UserService {
     const updatedUser = await UserModel.findByIdAndUpdate(id, userData, {
       new: true,
       runValidators: true
-    });
-  
-    return updatedUser;
+    })
+    return updatedUser
   }
-  
 
   deleteUser = async (id) => {
     const result = await UserModel.deleteOne({ _id: id })

@@ -5,18 +5,15 @@ import { UserController } from "../controllers/user.controller.js"
 const router = Router()
 const userController = new UserController()
 
-router.get('/home/users', userController.getAllUser.bind(userController))
+// Các route API
+router.get('/api/users', userController.getAllUser.bind(userController))
 
-router.get('/home/users/create', userController.showCreateForm.bind(userController))
+router.get('/api/users/:id', userController.getUserById.bind(userController))
 
-router.post('/home/users/create', UserValidator.validateCreateUser, userController.createUser.bind(userController))
+router.post('/api/users', UserValidator.validateCreateUser, userController.createUser.bind(userController))
 
-router.get('/home/users/:id/edit', userController.showEditForm.bind(userController))
+router.put('/api/users/:id', UserValidator.validateCreateUser, userController.updateUser.bind(userController))
 
-router.post('/home/users/:id/edit', UserValidator.validateCreateUser, userController.updateUser.bind(userController))
+router.delete('/api/users/:id', userController.deleteUser.bind(userController))
 
-router.get('/home/users/:id', userController.getUserById.bind(userController))
-
-router.get('/home/users/:id/delete', userController.deleteUser.bind(userController))
-
-export default router
+export default router;
