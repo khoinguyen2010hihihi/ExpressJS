@@ -1,8 +1,8 @@
 import { UserService } from "../services/user.service.js"
 
 export class UserController {
-  constructor() {
-    this.userService = new UserService()
+  constructor(userService) {
+    this.userService = UserService
   }
 
   getAllUser = (req, res) => {

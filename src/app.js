@@ -2,7 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import instanceMongoDB from './database/init.mongodb.js'
 import multer from 'multer'
-
+import userRoute from './routes/user.route.js';
 dotenv.config()
 
 const PORT = process.env.PORT
@@ -65,8 +65,10 @@ app.post('/uploadimg', upload.fields([
   })
 })
 
+app.use(userRoute)
+
 instanceMongoDB
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`)
-});
+})
