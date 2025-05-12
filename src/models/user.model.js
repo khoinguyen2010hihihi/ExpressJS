@@ -15,6 +15,14 @@ const userSchema = new mongoose.Schema({
   hobbies: {
     type: [String],
     default: []
+  },
+  role: {
+    type: String,
+    default: 'user'
+  }, 
+  password: {
+  type: String,
+  required: true
   }
 }, {
   timestamps: true
