@@ -1,32 +1,37 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import instanceMongoDB from './database/init.mongodb.js'
-import userRoute from './routes/user.route.js'
-import path from 'path'
+import instanceMongoDB from './config/db.config.js'
+import { errorHandler } from './handler/error-handler.js'
+import cookieParser from 'cookie-parser'
+import userRouter from './routes/user.route.js'
+import authRouter from './routes/auth.route.js'
+import pollRouter from './routes/poll.route.js'
 
 dotenv.config()
 
 const PORT = process.env.PORT
-const __dirname = path.resolve()
 
 const app = express()
 
-app.set('view engine', 'pug')
-app.set('views', path.join(__dirname, 'src/views'))
-
 app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(cookieParser())
 
-app.get('/home', (req, res) => {
-  res.send('Home')
-})
-
-app.use(userRoute)
+app.use('/user', userRouter)
+app.use('/auth', authRouter)
+app.use('/api/poll', pollRouter)
 
 instanceMongoDB
+
+app.use('*', (req, res) => {
+  res.status(404).json({
+    status: 'error',
+    code: 404,
+    message: 'Not Found',
+  })
+})
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Sv is running on http://localhost:${PORT}/home`)
 })
-

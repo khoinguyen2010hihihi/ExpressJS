@@ -1,22 +1,16 @@
-import { Router } from "express"
-import { UserValidator } from "../middleware/user.validate.js"
-import { UserController } from "../controllers/user.controller.js"
+import express from 'express'
+import userController from '../controllers/user.controller.js'
+import asyncHandler from '../middleware/asyncHandle.js';
+import { authMiddleware, isAdmin } from '../middleware/authMiddleware.js';
 
-const router = Router()
-const userController = new UserController()
+const router = express.Router()
 
-router.get('/home/users', userController.getAllUser.bind(userController))
-
-router.get('/home/users/create', userController.showCreateForm.bind(userController))
-
-router.post('/home/users/create', UserValidator.validateCreateUser, userController.createUser.bind(userController))
-
-router.get('/home/users/:id/edit', userController.showEditForm.bind(userController))
-
-router.post('/home/users/:id/edit', UserValidator.validateCreateUser, userController.updateUser.bind(userController))
-
-router.get('/home/users/:id', userController.getUserById.bind(userController))
-
-router.get('/home/users/:id/delete', userController.deleteUser.bind(userController))
+router.post('/create', asyncHandler(userController.createUser));
+router.put('/updateMe', authMiddleware, asyncHandler(userController.updateMe));
+router.get('/me', authMiddleware, asyncHandler(userController.getMe));
+router.get('/getAll', authMiddleware, isAdmin, asyncHandler(userController.getAllUsers));
+router.get('/:id', authMiddleware, isAdmin, asyncHandler(userController.getUser));
+router.put('/:id', authMiddleware, isAdmin, asyncHandler(userController.updateUser));
+router.delete('/:id', authMiddleware, isAdmin, asyncHandler(userController.deleteUser));
 
 export default router

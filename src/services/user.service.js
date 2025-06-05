@@ -1,31 +1,52 @@
-import UserModel from '../models/user.model.js'
+import { ConflictRequestError, NotFoundError } from "../handler/error-response.js"
+import User from "../models/user.model.js"
 
-export class UserService {
-  getAllUsers = async () => {
-    return await UserModel.find()
+class UserService {
+  async createUser(userData) {
+    const existingUser = await User.findOne({ email: userData.email })
+    if (existingUser) {
+      throw new ConflictRequestError("User already exists with this email")
+    }
+    const user = new User(userData)
+    await user.save()
+    return user
   }
 
-  getUserById = async (id) => {
-    return await UserModel.findById(id)
+  async getUserById(userId) {
+    return await User.findById(userId).select("-password")
   }
 
-  createUser = async (userData) => {
-    const user = new UserModel(userData)
-    return await user.save()
+  async getUserByEmail(email) {
+    return await User.findOne({ email }).select("-password")
   }
 
-  updateUser = async (id, userData) => {
-    const updatedUser = await UserModel.findByIdAndUpdate(id, userData, {
-      new: true,
-      runValidators: true
-    });
-  
-    return updatedUser;
-  }
-  
+  async updateUser(userId, updateData) {
+    delete updateData.role
 
-  deleteUser = async (id) => {
-    const result = await UserModel.deleteOne({ _id: id })
-    return result.deletedCount > 0
+    if (updateData.password) {
+      const existingUser = await User.findById(userId)
+      if (!existingUser) {
+        throw new NotFoundError("User not found")
+      }
+      existingUser.username = updateData.username || existingUser.username
+      existingUser.email = updateData.email || existingUser.email
+      existingUser.password = updateData.password || existingUser.password
+      existingUser.role = updateData.role || existingUser.role
+      await existingUser.save()
+      return existingUser
+    } else {
+      return User.findByIdAndUpdate(id, updateData, { new: true, runValidators: true }).select("-password")
+    }
+  }
+
+
+  async deleteUser(userId) {
+    return await User.findByIdAndDelete(userId);
+  }
+
+  async getAllUsers() {
+    return await User.find().select("-password")
   }
 }
+
+export default new UserService()
