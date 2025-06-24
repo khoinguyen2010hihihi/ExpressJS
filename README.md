@@ -1,8 +1,18 @@
-"# ExpressJS" 
+# Poll App
 
-Bài 2: {
-  -Xây dựng các API liên quan đến User
-  -Code CRUD
-  -req.params
-  -req.body
-}
+This is a simple polling application built with ExpressJS.
+
+## Features
+
+- Create poll
+- Vote on options
+- View results
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start the server
+npm start
