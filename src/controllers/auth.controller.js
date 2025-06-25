@@ -8,9 +8,7 @@ class AuthController {
     res.status(201).json(new CREATED({
       message: "User registered successfully",
       metadata: {
-        user: result.user,
-        accessToken: result.accessToken
-      }
+        user: result.user      }
     }))
   }
 
