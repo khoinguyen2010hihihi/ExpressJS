@@ -23,7 +23,7 @@ app.use('/api/poll', pollRouter)
 instanceMongoDB
 
 app.get('/', (req, res) => {
-  res.status(200).json({"Test CI/CD": "Hello World!"})
+  res.status(200).json({"Test CI/CD"})
   })
 
 
