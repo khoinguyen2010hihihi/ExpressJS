@@ -14,5 +14,4 @@ This is a simple polling application built with ExpressJS.
 # Install dependencies
 npm install
 
-# Start the server
-npm start
+# HELLO BITCH
